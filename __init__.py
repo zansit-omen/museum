@@ -31,13 +31,13 @@ def set_up_database():
 
 def seed_data(cursor):
     photos = [
-        ("photos/AIGB8339.PNG", "Los quince años de Juliana, ese dia tenia las patas acalambradas de tanto bailar"),
+        ("photos/AIGB8339.png", "Los quince años de Juliana, ese dia tenia las patas acalambradas de tanto bailar"),
         ("photos/BufandaAlpina.jpeg", "Esa foto me da mucha risa jajaja"),
         ("photos/CamaraCata.jpeg", "Ese dia estabamos acabando semestre y subimos a tomarnos fotos en la terraza con la camara de Catalina"),
-        ("photos/AIHS2404.PNG", "Nuestro primer fin de año juntos, Ricardo nos veia tomandonos fotos, solo nos llamaba ´lamparas´ "),
-        ("photos/CBLH9052.PNG", "No podia faltar la foto ridicula."),
+        ("photos/AIHS2404.png", "Nuestro primer fin de año juntos, Ricardo nos veia tomandonos fotos, solo nos llamaba ´lamparas´ "),
+        ("photos/CBLH9052.png", "No podia faltar la foto ridicula."),
         ("photos/IMG_1106.png", "La primera y unica vez que fuimos a piscinear."),
-        ("photos/IMG_1130.PNG", "Ese dia estaba tirando unos peos hediondos yo, aun asi, como siempre, nos reiamos mucho."),
+        ("photos/IMG_1130.png", "Ese dia estaba tirando unos peos hediondos yo, aun asi, como siempre, nos reiamos mucho."),
         ("photos/festivalTerror.jpeg" , "Nuestro primer festival del terror, como yo soy un viejito en el cuerpo de un man increiblemente guapo, estaba cansaito."),
         ("photos/AQWL3421.JPG", "El día que fuimos a Alpina con Natalia y Pedro, todavia me saboreo ese Alpin de chocolate, masmelos, arequipe, todo caliente."),
         ("photos/SieteMeses.jpeg", "Ese dia cumplimos siete meses, te lleve los clasicos girasoles y nos vimos en un salon porque yo tenia que hacer tareas."),

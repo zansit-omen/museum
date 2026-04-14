@@ -1,6 +1,7 @@
 import sqlite3
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
+from __init__ import set_up_database, seed_data
 
 app = Flask(__name__)
 database = ("anniversary.db")
@@ -12,6 +13,7 @@ def get_db():
 
 @app.route("/", methods = ["GET"])
 def see_photos():
+    set_up_database()
     conn = get_db()
     cursor = conn.cursor()
     row = cursor.execute('''

@@ -1,195 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Our Museum</title>
+<meta charset="UTF-8">
+<title>Our Museum</title>
 
-    <style>
-    body {
-    background: radial-gradient(circle at top, #1a1a1a, #0d0d0d 70%);
-    color: #f5f5f5;
-    font-family: Arial, sans-serif;
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap" rel="stylesheet">
+
+<style>
+
+/* BODY + BACKGROUND */
+body {
     margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: url("{{ url_for('static', filename='background.png') }}") center/cover no-repeat fixed;
+    color: #3a2c2c;
 }
 
-    header {
-        text-align: center;
-        padding: 60px 20px;
-        border-bottom: 1px solid #333;
-    }
+/* SOFT OVERLAY (so text is readable but background still visible) */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 245, 240, 0.6);
+    z-index: -1;
+}
 
-    header h1 {
+/* HERO */
+.hero {
+    height: 90vh;
+    background: url("{{ url_for('static', filename=photos[0]['url']) }}") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+}
+
+.hero-text {
+    position: relative;
+    color: white;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+}
+
+.hero-text h1 {
+    font-size: 2.8rem;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
     font-size: 3rem;
-    margin-bottom: 10px;
-    color: #f0d48a; /* warm gold */
-    }
-
-    header p {
-    font-size: 1.2rem;
-    color: #cfcfcf;
-    }
-
-    /* MAIN GALLERY */
-    .gallery {
-        max-width: 1100px;
-        margin: auto;
-        padding: 80px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 120px; /* BIG spacing like museum */
-    }
-
-    /* EACH EXHIBIT */
-    .exhibit {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 50px;
-    }
-
-    /* ALTERNATE LEFT / RIGHT */
-    .reverse {
-        flex-direction: row-reverse;
-    }
-
-    /* IMAGE = PAINTING */
-    .photo {
-    width: 45%;
-    padding: 12px;
-    
-    /* Outer frame */
-    background: linear-gradient(145deg, #3a2c1a, #1a1208);
-    border: 6px solid #2a1d0f;
-
-    /* Inner mat (like museums use) */
-    box-shadow:
-        inset 0 0 0 8px #e8e6df,   /* light inner border */
-        inset 0 0 0 12px #bba97a;  /* gold-ish trim */
-
-    /* Depth */
-    box-shadow:
-        inset 0 0 0 8px #e8e6df,
-        inset 0 0 0 12px #bba97a,
-        0 10px 30px rgba(0,0,0,0.8);
-
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.3s ease;
 }
 
-    .photo:hover {
-        transform: scale(1.03);
-    }
+/* GALLERY */
+.gallery {
+    max-width: 1100px;
+    margin: auto;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+}
 
-    /* DESCRIPTION FRAME */
-    .frame {
-    width: 45%;
-    border: 4px solid #333;
-    padding: 25px;
-    background: #111;
-    color: #ddd;
-    font-size: 1.1rem;
-    line-height: 1.6;
+/* EXHIBIT */
+.exhibit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
 
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.4s ease;
-    pointer-events: none;
-    }
+.reverse {
+    flex-direction: row-reverse;
+}
 
-    .frame.show {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    footer {
-        text-align: center;
-        padding: 50px;
-        border-top: 1px solid #333;
-        color: #888;
-    }
-
-    /* MOBILE FIX */
-    @media (max-width: 768px) {
-        .exhibit {
-            flex-direction: column;
-        }
-
-        .photo, .frame {
-            width: 100%;
-        }
-    }
-    .photo-frame {
+/* PHOTO FRAME */
+.photo-frame {
     width: 45%;
     padding: 14px;
 
-    /* WOOD TEXTURE LOOK */
     background: linear-gradient(135deg, #5a3e1b, #3b2a14, #6b4a1f);
     border: 8px solid #2d1f0f;
 
-    /* GOLD INNER TRIM */
     box-shadow:
         inset 0 0 0 6px #e8d8a8,
         inset 0 0 0 10px #b89b5e,
         0 15px 35px rgba(0,0,0,0.8);
 
-    border-radius: 6px;
-    transition: all 0.3s ease;
     cursor: pointer;
-    }
+    transition: 0.3s;
+}
 
 .photo-frame:hover {
-    transform: scale(1.04) rotate(-0.5deg);
-    box-shadow:
-        inset 0 0 0 6px #e8d8a8,
-        inset 0 0 0 10px #b89b5e,
-        0 20px 45px rgba(0,0,0,1);
+    transform: scale(1.05);
 }
 
 .photo-frame img {
     width: 100%;
     display: block;
-    border-radius: 2px;
 }
 
+/* DESCRIPTION */
+.frame {
+    width: 40%;
+    background: #ffffffd9;
+    padding: 40px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
 
-    </style>
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+}
+
+.frame.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 50px;
+    color: #777;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .exhibit {
+        flex-direction: column;
+    }
+
+    .photo-frame, .frame {
+        width: 100%;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
+<section class="hero">
+    <div class="hero-text">
+        <h1>"Quiero hablar de ti siempre como el amor que eres,<br>nunca como el amor que fuiste."</h1>
+    </div>
+</section>
+
 <header>
-    <h1>The Museum of Us</h1>
-    <p>Our first year together</p>
+    <h1>Nuestro museo</h1>
+    <p>Nuestro primer año juntos</p>
 </header>
 
 <div class="gallery">
-    {% for photo in photos %}
-        <div class="exhibit {% if loop.index % 2 == 0 %}reverse{% endif %}" onclick="toggleDescription(this)">
-            
-            <div class="photo-frame">
-                <img src="{{ url_for('static', filename=photo['url']) }}">
-            </div>
-
-            <div class="frame hidden">
-                <p>{{ photo['description'] }}</p>
-            </div>
-
+{% for photo in photos %}
+    <div class="exhibit {% if loop.index % 2 == 0 %}reverse{% endif %}">
+        
+        <div class="photo-frame" onclick="toggleDescription(this)">
+            <img src="{{ url_for('static', filename=photo['url']) }}">
         </div>
-    {% endfor %}
+
+        <div class="frame">
+            {{ photo['description'] }}
+        </div>
+
+    </div>
+{% endfor %}
 </div>
 
 <footer>
-    <p>To many more memories together ❤️</p>
+    <p>Demasiados momentos juntos ❤️</p>
 </footer>
 
 <script>
-function toggleDescription(exhibit) {
+function toggleDescription(photoElement) {
+    const exhibit = photoElement.parentElement;
     const frame = exhibit.querySelector(".frame");
     frame.classList.toggle("show");
 }
